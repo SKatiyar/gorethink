@@ -332,7 +332,6 @@ func (s *RethinkSuite) TestTableChangesIncludeInitial(c *test.C) {
 			n++
 		}
 
-		println(response)
 		if res.Err() != nil {
 			c.Fatal(res.Err())
 		}
