@@ -190,6 +190,20 @@ func (s *Session) NoReplyWait() error {
 	})
 }
 
+// Server returns the server name and server UUID being used by a connection
+func (s *Session) Server() (*Cursor, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	if s.closed {
+		return nil, ErrConnectionClosed
+	}
+
+	return s.cluster.Query(Query{
+		Type: p.Query_SERVER_INFO,
+	})
+}
+
 // Use changes the default database used
 func (s *Session) Use(database string) {
 	s.mu.RLock()
